@@ -1,7 +1,7 @@
 // components/PropertyInfo.js
 import React from 'react';
 
-const PropertyInfo = ({ formData, handleChange }) => {
+const PropertyInfo = ({ formData, handleChange, setFormData }) => {
   // All US states array
   const usStates = [
     { value: 'AL', label: 'Alabama' },

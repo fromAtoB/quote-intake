@@ -58,13 +58,24 @@ function App() {
   const totalSteps = 5;
 
   // Handle form field changes
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+const handleChange = (e) => {
+  const { name, value, type, checked } = e.target;
+  
+  // Special case for form update with multiple fields
+  if (name === 'formUpdate') {
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      ...value
     });
-  };
+    return;
+  }
+  
+  // Normal case for single field update
+  setFormData({
+    ...formData,
+    [name]: type === 'checkbox' ? checked : value
+  });
+};
 
   // Handle step navigation
   const nextStep = () => {
@@ -98,7 +109,7 @@ function App() {
       case 2:
         return <VehicleInfo formData={formData} handleChange={handleChange} />;
       case 3:
-        return <PropertyInfo formData={formData} handleChange={handleChange} />;
+        return <PropertyInfo formData={formData} handleChange={handleChange} setFormData={setFormData} />;
       case 4:
         return <CoverageOptions formData={formData} handleChange={handleChange} />;
       case 5:

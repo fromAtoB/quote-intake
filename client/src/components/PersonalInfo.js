@@ -6,28 +6,26 @@ const PersonalInfo = ({ formData, handleChange }) => {
   const handleDOBChange = (e) => {
     const { name, value } = e.target;
     
-    // Get current values
-    const currentMonth = formData.dobMonth || '';
-    const currentDay = formData.dobDay || '';
-    const currentYear = formData.dobYear || '';
+    // Update the specific part directly
+    handleChange(e);
     
-    // Update the specific part of the date
-    let newMonth = name === 'dobMonth' ? value : currentMonth;
-    let newDay = name === 'dobDay' ? value : currentDay;
-    let newYear = name === 'dobYear' ? value : currentYear;
+    // Get current values (use the updated value for the field that just changed)
+    const currentMonth = name === 'dobMonth' ? value : formData.dobMonth || '';
+    const currentDay = name === 'dobDay' ? value : formData.dobDay || '';
+    const currentYear = name === 'dobYear' ? value : formData.dobYear || '';
     
     // Create the full date string if all parts are available
-    let fullDate = '';
-    if (newYear && newMonth && newDay) {
-      fullDate = `${newYear}-${newMonth.padStart(2, '0')}-${newDay.padStart(2, '0')}`;
+    if (currentYear && currentMonth && currentDay) {
+      const fullDate = `${currentYear}-${currentMonth.padStart(2, '0')}-${currentDay.padStart(2, '0')}`;
+      
+      // Update the full date
+      handleChange({
+        target: {
+          name: 'dateOfBirth',
+          value: fullDate
+        }
+      });
     }
-    
-    // Update form with both the individual parts and the full date
-    const e1 = { target: { name: name, value: value } };
-    const e2 = { target: { name: 'dateOfBirth', value: fullDate } };
-    
-    handleChange(e1);
-    handleChange(e2);
   };
   
   // Generate options for dropdowns
