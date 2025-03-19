@@ -108,7 +108,12 @@ h3 {
 }
 
 .checkbox-group input[type="checkbox"] {
-  margin-right: 10px;
+  width: auto;
+  margin-right: 8px;
+  cursor: pointer;
+  appearance: auto; /* This ensures the default checkbox appearance */
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
 }
 
 label {
