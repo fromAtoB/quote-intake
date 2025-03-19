@@ -34,19 +34,11 @@ const PersonalInfo = ({ formData, handleChange }) => {
     const startYear = currentYear - 100;
     const years = [];
     
-    // Add an empty option first
-    years.push(
-      <option key="empty-year" value="">
-        Year
-      </option>
-    );
-    
-    // Add year options as strings, not numbers
     for (let year = currentYear; year >= startYear; year--) {
-      const yearStr = year.toString();
+      const yearValue = year.toString();  // Convert to string explicitly
       years.push(
-        <option key={yearStr} value={yearStr}>
-          {yearStr}
+        <option key={yearValue} value={yearValue}>
+          {yearValue}
         </option>
       );
     }
