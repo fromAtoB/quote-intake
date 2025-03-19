@@ -216,6 +216,42 @@ button:active {
   margin-top: 30px;
 }
 
+/* DOB row specific styling */
+.dob-row .form-group {
+  flex: 1;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/* Disabled field styling */
+input:disabled,
+select:disabled {
+  background-color: #f9f9f9;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Hide number input spinners */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+}
+
+.no-spinner::-webkit-inner-spin-button, 
+.no-spinner::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .insurance-form-container {

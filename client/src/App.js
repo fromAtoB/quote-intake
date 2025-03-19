@@ -18,6 +18,9 @@ function App() {
     email: '',
     phone: '',
     dateOfBirth: '',
+    dobMonth: '',
+    dobDay: '',
+    dobYear: '',
     address: '',
     city: '',
     state: '',
@@ -34,6 +37,7 @@ function App() {
     
     // Property information (if applicable)
     hasProperty: false,
+    isSameAddress: false,
     propertyAddress: '',
     propertyCity: '',
     propertyState: '',
