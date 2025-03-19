@@ -34,10 +34,19 @@ const PersonalInfo = ({ formData, handleChange }) => {
     const startYear = currentYear - 100;
     const years = [];
     
+    // Add an empty option first
+    years.push(
+      <option key="empty-year" value="">
+        Year
+      </option>
+    );
+    
+    // Add year options as strings, not numbers
     for (let year = currentYear; year >= startYear; year--) {
+      const yearStr = year.toString();
       years.push(
-        <option key={year} value={year}>
-          {year}
+        <option key={yearStr} value={yearStr}>
+          {yearStr}
         </option>
       );
     }
@@ -219,7 +228,6 @@ const PersonalInfo = ({ formData, handleChange }) => {
               onChange={handleDOBChange}
               required
             >
-              <option value="">Year</option>
               {generateYearOptions()}
             </select>
           </div>
