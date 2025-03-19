@@ -79,47 +79,6 @@ const PropertyInfo = ({ formData, handleChange, setFormData }) => {
       });
     }
   };
-    
-    // Update fields conditionally based on checkbox state
-    if (isChecked) {
-      // Copy personal address to property address
-      const events = [
-        {
-          target: {
-            name: 'propertyAddress',
-            value: formData.address
-          }
-        },
-        {
-          target: {
-            name: 'propertyCity',
-            value: formData.city
-          }
-        },
-        {
-          target: {
-            name: 'propertyState',
-            value: formData.state
-          }
-        },
-        {
-          target: {
-            name: 'propertyZipCode',
-            value: formData.zipCode
-          }
-        }
-      ];
-      
-      // Update isSameAddress first
-      handleChange(sameAddressEvent);
-      
-      // Update all address fields
-      events.forEach(event => handleChange(event));
-    } else {
-      // Just update the checkbox state
-      handleChange(sameAddressEvent);
-    }
-  };
   
   return (
     <div className="form-section">
