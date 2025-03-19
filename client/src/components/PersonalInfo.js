@@ -6,34 +6,44 @@ const PersonalInfo = ({ formData, handleChange }) => {
   const handleDOBChange = (e) => {
     const { name, value } = e.target;
     
-    // Update the specific part directly
-    handleChange(e);
+    console.log(`${name} changed to:`, value); // Debug logging
     
-    // Get current values (use the updated value for the field that just changed)
-    const currentMonth = name === 'dobMonth' ? value : formData.dobMonth || '';
-    const currentDay = name === 'dobDay' ? value : formData.dobDay || '';
-    const currentYear = name === 'dobYear' ? value : formData.dobYear || '';
+    // Create a direct event to update just this field
+    const directEvent = {
+      target: {
+        name: name,
+        value: value
+      }
+    };
     
-    // Create the full date string if all parts are available
-    if (currentYear && currentMonth && currentDay) {
-      const fullDate = `${currentYear}-${currentMonth.padStart(2, '0')}-${currentDay.padStart(2, '0')}`;
+    // Handle the form update directly
+    handleChange(directEvent);
+    
+    // Get updated values including the one just changed
+    setTimeout(() => {
+      // Use setTimeout to ensure state has updated
+      const updatedMonth = name === 'dobMonth' ? value : formData.dobMonth || '';
+      const updatedDay = name === 'dobDay' ? value : formData.dobDay || '';
+      const updatedYear = name === 'dobYear' ? value : formData.dobYear || '';
       
-      // Update the full date
-      handleChange({
-        target: {
-          name: 'dateOfBirth',
-          value: fullDate
-        }
-      });
-    }
+      if (updatedYear && updatedMonth && updatedDay) {
+        const fullDate = `${updatedYear}-${updatedMonth.padStart(2, '0')}-${updatedDay.padStart(2, '0')}`;
+        handleChange({
+          target: {
+            name: 'dateOfBirth',
+            value: fullDate
+          }
+        });
+      }
+    }, 0);
   };
-  
+
   // Generate options for dropdowns
   const generateYearOptions = () => {
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 100;
     const years = [];
-    
+
     for (let year = currentYear; year >= startYear; year--) {
       const yearValue = year.toString();  // Convert to string explicitly
       years.push(
@@ -42,10 +52,10 @@ const PersonalInfo = ({ formData, handleChange }) => {
         </option>
       );
     }
-    
+
     return years;
   };
-  
+
   const generateMonthOptions = () => {
     const months = [];
     for (let month = 1; month <= 12; month++) {
@@ -59,7 +69,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
     }
     return months;
   };
-  
+
   const generateDayOptions = () => {
     const days = [];
     for (let day = 1; day <= 31; day++) {
@@ -73,7 +83,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
     }
     return days;
   };
-  
+
   // All US states array
   const usStates = [
     { value: 'AL', label: 'Alabama' },
@@ -128,11 +138,11 @@ const PersonalInfo = ({ formData, handleChange }) => {
     { value: 'WI', label: 'Wisconsin' },
     { value: 'WY', label: 'Wyoming' }
   ];
-  
+
   return (
     <div className="form-section">
       <h2>Personal Information</h2>
-      
+
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="firstName">First Name *</label>
@@ -145,7 +155,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="lastName">Last Name *</label>
           <input
@@ -158,7 +168,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
           />
         </div>
       </div>
-      
+
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="email">Email *</label>
@@ -171,7 +181,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="phone">Phone Number *</label>
           <input
@@ -184,7 +194,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
           />
         </div>
       </div>
-      
+
       <div className="form-group">
         <label>Date of Birth *</label>
         <div className="form-row dob-row">
@@ -219,7 +229,9 @@ const PersonalInfo = ({ formData, handleChange }) => {
               value={formData.dobYear || ""}
               onChange={handleDOBChange}
               required
+              key="dobYear-select" // Add this line
             >
+              <option value="">Year</option>
               {generateYearOptions()}
             </select>
           </div>
@@ -231,7 +243,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
           value={formData.dateOfBirth || ""}
         />
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="address">Street Address *</label>
         <input
@@ -243,7 +255,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
           required
         />
       </div>
-      
+
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="city">City *</label>
@@ -256,7 +268,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="state">State *</label>
           <select
@@ -274,7 +286,7 @@ const PersonalInfo = ({ formData, handleChange }) => {
             ))}
           </select>
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="zipCode">Zip Code *</label>
           <input

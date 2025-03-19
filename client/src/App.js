@@ -58,24 +58,18 @@ function App() {
   const totalSteps = 5;
 
   // Handle form field changes
-const handleChange = (e) => {
-  const { name, value, type, checked } = e.target;
-  
-  // Special case for form update with multiple fields
-  if (name === 'formUpdate') {
-    setFormData({
-      ...formData,
-      ...value
-    });
-    return;
-  }
-  
-  // Normal case for single field update
-  setFormData({
-    ...formData,
-    [name]: type === 'checkbox' ? checked : value
-  });
-};
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    
+    // For debugging
+    console.log(`handleChange: ${name} = ${value} (${typeof value})`);
+    
+    // Update the form data
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
   // Handle step navigation
   const nextStep = () => {
