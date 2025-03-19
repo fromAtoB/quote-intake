@@ -61,15 +61,24 @@ const PropertyInfo = ({ formData, handleChange, setFormData }) => {
   const handleSameAddressChange = (e) => {
     const isChecked = e.target.checked;
     
-    // Create a custom event to update the isSameAddress field
-    const sameAddressEvent = {
-      target: {
-        name: 'isSameAddress',
-        value: isChecked,
-        type: 'checkbox',
-        checked: isChecked
-      }
-    };
+    if (isChecked) {
+      // Directly update the form data with all address fields
+      setFormData({
+        ...formData,
+        isSameAddress: true,
+        propertyAddress: formData.address,
+        propertyCity: formData.city,
+        propertyState: formData.state,
+        propertyZipCode: formData.zipCode
+      });
+    } else {
+      // Just update the checkbox state
+      setFormData({
+        ...formData,
+        isSameAddress: false
+      });
+    }
+  };
     
     // Update fields conditionally based on checkbox state
     if (isChecked) {
